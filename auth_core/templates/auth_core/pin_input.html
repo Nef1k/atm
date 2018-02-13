@@ -6,6 +6,7 @@
     <form action="/pin_input/{{ attempt_id }}" method="post">
         {% csrf_token %}
         <input type="password" name="pin" placeholder="PIN">
+        <br>
         <button type="submit">Ok</button>
         <button type="reset">Clear</button>
         {% if error_message %}

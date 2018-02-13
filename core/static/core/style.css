@@ -6,6 +6,10 @@ body{
     font-size: 12pt;
 }
 
+input[type='text'], input[type='password']{
+    width: 100%;
+}
+
 .body-wrapper{
     width: 400px;
     margin: 0 auto;
@@ -13,4 +17,40 @@ body{
 
 .text-center{
     text-align: center;
+}
+
+
+a{
+    color: #333;
+    text-decoration: none;
+}
+a:hover{
+    color: #666;
+}
+
+ul, li{
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    list-style: none;
+    background: #DDD;
+    width: 300px;
+    border-bottom: 1px solid #efefef;
+}
+
+li a{
+    display: block;
+    padding: 5px 3px;
+
+    color: black;
+    text-decoration: none;
+}
+
+li:hover{
+    background: #efefef;
+}
+li a:hover{
+    color: #333;
 }

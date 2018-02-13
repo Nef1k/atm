@@ -5,8 +5,11 @@
     <form action="{% url 'withdraw' %}" method="post">
         {% csrf_token %}
         <input type="text" name="amount" placeholder="Amount">
+        <br>
         <button type="submit">Withdraw</button>
         <button type="reset">Clear</button>
-        <p><a href="{% url 'index' %}">Back</a></p>
+        <p>
+            <a href="{% url 'index' %}">Back</a>
+        </p>
     </form>
 {% endblock %}
