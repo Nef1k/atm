@@ -1,5 +1,5 @@
 *.pyc
 *.sqlite3
-/auth/migrations/
+/auth_core/migrations/
 *.swp
 .idea/

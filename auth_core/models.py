@@ -7,10 +7,10 @@ from .managers import CardManager
 
 
 class Card(AbstractBaseUser):
-    number = models.IntegerField(max_length=16, primary_key=True)
-    pin = models.IntegerField(max_length=4)
+    number = models.IntegerField(primary_key=True)
+    pin = models.IntegerField()
     balance = models.DecimalField(max_digits=12, decimal_places=2)
-    auth_attempts_failed = models.IntegerField(max_length=1)
+    auth_attempts_failed = models.IntegerField()
 
     is_active = models.BooleanField()
 
@@ -24,5 +24,5 @@ class Card(AbstractBaseUser):
 
 
 class AuthAttempt(models.Model):
-    card = models.ForeignKey(to=Card)
+    card = models.ForeignKey(to=Card, on_delete=models.CASCADE)
     attempt_date = models.DateTimeField()
