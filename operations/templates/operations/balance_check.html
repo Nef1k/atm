@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+
+{% block body %}
+    <table border="1">
+        <tr>
+            <td>Card number: </td>
+            <td>{{ card.number }}</td>
+        </tr>
+        <tr>
+            <td>Issue date: </td>
+            <td>{{ current_date }}</td>
+        </tr>
+        <tr>
+            <td>Balance: </td>
+            <td>{{ card.balance }}</td>
+        </tr>
+    </table>
+    <a href="{% url 'index' %}">Back</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+
+{% block body %}
+    <h3>Withdrawal</h3>
+    <form action="{% url 'withdraw' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="amount" placeholder="Amount">
+        <button type="submit">Withdraw</button>
+        <button type="reset">Clear</button>
+        <p><a href="{% url 'index' %}">Back</a></p>
+    </form>
+{% endblock %}

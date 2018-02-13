@@ -1,11 +1,16 @@
 from datetime import datetime
 
 from django.http import HttpRequest, HttpResponse
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 
 from auth_core.models import Card, AuthAttempt
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(to='index')
 
 
 class NumberInputView(View):
@@ -13,8 +18,11 @@ class NumberInputView(View):
         return render(request, 'auth_core/number_input.html')
 
     # TODO: Make a form from this
-    def post(self, request: HttpRequest):
-        card_number = request.POST.get('card_number', 'invalid_number')
+    def post(self, request):
+        try:
+            card_number = int(request.POST.get('card_number', 'invalid_number'))
+        except ValueError:
+            return redirect('error', code='invalid_input')
 
         try:
             card = Card.objects.get(pk=card_number)
@@ -46,7 +54,11 @@ class PinInputView(View):
         if not card.is_active:
             return redirect(to='error', code='card_blocked')
 
-        pin = request.POST.get('pin', 'invalid_pin')
+        try:
+            pin = int(request.POST.get('pin', 'invalid_pin'))
+        except ValueError:
+            return redirect('error', code='invalid_input')
+
         if not card.pin == pin:
             card.auth_attempts_failed += 1
             if card.auth_attempts_failed >= 4:
@@ -61,4 +73,4 @@ class PinInputView(View):
             card.save()
         attempt.delete()
         login(request, card)
-        return HttpResponse("Access granted")
+        return redirect(to='operations_list')
