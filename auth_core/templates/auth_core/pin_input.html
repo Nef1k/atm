@@ -2,10 +2,10 @@
 
 {% block body %}
 
-    <h3>Enter PIN</h3>
+    <h3 class="text-center">Enter PIN</h3>
     <form action="/pin_input/{{ attempt_id }}" method="post">
         {% csrf_token %}
-        <input type="text" name="pin" placeholder="PIN">
+        <input type="password" name="pin" placeholder="PIN">
         <button type="submit">Ok</button>
         <button type="reset">Clear</button>
         {% if error_message %}

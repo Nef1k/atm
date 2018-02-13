@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<h3>Enter card number</h3>
+<h3 class="text-center">Enter card number</h3>
 <form action="/number_input/" method="post">
     {% csrf_token %}
     <input type="text" name="card_number" placeholder="Card number">

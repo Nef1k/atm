@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="{% static 'core/style.css' %}">
 </head>
 <body>
-    {% block body %}
-    {% endblock %}
+    <div class="body-wrapper">
+        {% block body %}
+        {% endblock %}
+    </div>
 </body>
 </html>
