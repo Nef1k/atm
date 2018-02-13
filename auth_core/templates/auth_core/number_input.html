@@ -1,6 +1,7 @@
 <h3>Enter card number</h3>
-<form action="/">
+<form action="/number_input/" method="post">
+    {% csrf_token %}
     <input type="text" name="card_number" placeholder="Card number">
     <button type="submit">Ok</button>
-    <button type="reset">Reset</button>
+    <button type="reset">Clear</button>
 </form>
