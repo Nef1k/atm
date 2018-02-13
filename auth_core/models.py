@@ -8,7 +8,7 @@ from .managers import CardManager
 
 class Card(AbstractBaseUser):
     number = models.IntegerField(primary_key=True)
-    pin = models.IntegerField()
+    pin = models.CharField(max_length=100)
     balance = models.DecimalField(max_digits=12, decimal_places=2)
     auth_attempts_failed = models.IntegerField()
 
@@ -19,8 +19,11 @@ class Card(AbstractBaseUser):
     REQUIRED_FIELDS = []
     USERNAME_FIELD = 'number'
 
-    def get_full_name(self):
-        return self.number
+    def get_short_name(self):
+        return str(self.number)
+
+    def __str__(self):
+        return self.get_short_name()
 
 
 class AuthAttempt(models.Model):
