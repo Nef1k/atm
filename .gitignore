@@ -1,0 +1,5 @@
+*.pyc
+*.sqlite3
+/auth/migrations/
+*.swp
+.idea/
