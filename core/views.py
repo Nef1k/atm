@@ -16,6 +16,7 @@ class ErrorView(View):
         'card_doesnt_exists': 'We can\'t find a card with this number',
         'card_blocked': 'Your card has been blocked. Contact administrator',
         'insufficient_funds': 'There\'s not enough money on your balance',
+        'attempt_expired': 'You have to start authentication from the begining',
         'pin_invalid': 'Invalid PIN. Return and try again',
         'access_denied': 'You can\'t view this page. Try to sign in first',
         'invalid_input': 'You enter some strange value. That\'s not okey',

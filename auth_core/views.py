@@ -48,7 +48,10 @@ class PinInputView(View):
 
     def post(self, request, attempt_id):
         # Lol what
-        attempt = get_object_or_404(AuthAttempt, pk=attempt_id)
+        try:
+            attempt = AuthAttempt.objects.get(pk=attempt_id)
+        except ValueError:
+            return redirect('error', code='attempt_expired')
 
         card = attempt.card
         if not card.is_active:
