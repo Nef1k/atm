@@ -19,9 +19,8 @@ class NumberInputView(View):
 
     # TODO: Make a form from this
     def post(self, request):
-        try:
-            card_number = int(request.POST.get('card_number', 'invalid_number'))
-        except ValueError:
+        card_number = request.POST.get('card_number', 'invalid_number')
+        if not str.isdigit(card_number):
             return redirect('error', code='invalid_input')
 
         try:
@@ -57,9 +56,8 @@ class PinInputView(View):
         if not card.is_active:
             return redirect(to='error', code='card_blocked')
 
-        try:
-            pin = int(request.POST.get('pin', 'invalid_pin'))
-        except ValueError:
+        pin = request.POST.get('pin', 'invalid_pin')
+        if not str.isdigit(pin):
             return redirect('error', code='invalid_input')
 
         if not card.pin == pin:
