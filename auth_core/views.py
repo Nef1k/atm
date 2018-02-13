@@ -16,12 +16,13 @@ class NumberInputView(View):
     def post(self, request: HttpRequest):
         card_number = request.POST.get('card_number', 'invalid_number')
 
-        # TODO: Redirect to error page (card does not exists)
-        card = get_object_or_404(Card, pk=card_number)
+        try:
+            card = Card.objects.get(pk=card_number)
+        except Card.DoesNotExist:
+            return redirect(to='error', code='card_doesnt_exists')
 
         if not card.is_active:
-            # TODO: Redirect to error page (card blocked)
-            pass
+            return redirect(to='error', code='card_blocked')
 
         auth_attempt = AuthAttempt()
         auth_attempt.card = card
@@ -43,26 +44,21 @@ class PinInputView(View):
 
         card = attempt.card
         if not card.is_active:
-            # TODO: Redirect to error page (card blocked)
-            pass
+            return redirect(to='error', code='card_blocked')
 
         pin = request.POST.get('pin', 'invalid_pin')
-
-        if card.pin == pin:
-            if not card.auth_attempts_failed == 0:
-                card.auth_attempts_failed = 0
-                card.save()
-
-            attempt.delete()
-            login(request, card)
-            # TODO: Redirect to operations page
-        else:
+        if not card.pin == pin:
             card.auth_attempts_failed += 1
             if card.auth_attempts_failed >= 4:
                 card.is_active = False
                 attempt.delete()
             card.save()
+            return redirect(to='error', code='pin_invalid')
 
-            return redirect('pin_input', attempt_id=attempt_id)
-
-        return HttpResponse('Hello, world!')
+        # Success
+        if not card.auth_attempts_failed == 0:
+            card.auth_attempts_failed = 0
+            card.save()
+        attempt.delete()
+        login(request, card)
+        return HttpResponse("Access granted")

@@ -4,4 +4,7 @@
     <input type="text" name="pin" placeholder="PIN">
     <button type="submit">Ok</button>
     <button type="reset">Clear</button>
+    {% if error_message %}
+        <p>Error: {{ error_message }}</p>
+    {% endif %}
 </form>

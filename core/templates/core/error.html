@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+
+{% block body %}
+    <h3>Bad things happens</h3>
+    <span>
+        {% if error_message %}
+            {{ error_message }}
+        {% else %}
+            Unknown error. Contact administrator
+        {% endif %}
+    </span>
+{% endblock %}
