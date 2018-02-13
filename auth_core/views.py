@@ -72,6 +72,9 @@ class PinInputView(View):
         if not card.auth_attempts_failed == 0:
             card.auth_attempts_failed = 0
             card.save()
-        attempt.delete()
+        attempts = AuthAttempt.objects.filter(card_id=card.number)
+        for attempt in attempts:
+            attempt.delete()
+
         login(request, card)
         return redirect(to='operations_list')
